@@ -12,21 +12,18 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Clipboard for copy-paste same as system
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
 -- Delete history
 vim.o.undofile = true
 
 -- Dont show the mode since mini statusline has it already
-vim.opt.showmode = false-- Smart Searching for me
+vim.opt.showmode = false -- Smart Searching for me
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default for lsp on the left
-vim.opt.signcolumn = "yes"
-
+vim.opt.signcolumn = 'yes'
 
 -- Configure how new splits should be opened
 vim.o.splitright = true
@@ -46,6 +43,16 @@ vim.o.updatetime = 250
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- no arrow keys --- force yourself to use the home row
+vim.keymap.set('n', '<up>', '<nop>')
+vim.keymap.set('n', '<down>', '<nop>')
+vim.keymap.set('i', '<up>', '<nop>')
+vim.keymap.set('i', '<down>', '<nop>')
+vim.keymap.set('i', '<left>', '<nop>')
+vim.keymap.set('i', '<right>', '<nop>')
+-- let the left and right arrows be useful: they can switch buffers
+vim.keymap.set('n', '<left>', ':bp<cr>')
+vim.keymap.set('n', '<right>', ':bn<cr>')
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -53,7 +60,5 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+  callback = function() vim.hl.on_yank() end,
 })
