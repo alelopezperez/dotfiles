@@ -181,6 +181,12 @@ return {
       --lua_ls = {},
       -- bashls = {},
       rust_analyzer = {},
+      hls = {},
+      agda_ls = {
+        cmd = { 'als' },
+        filetypes = { 'agda' },
+        root_markers = { '.git', '*.agda-lib' },
+      },
     }
 
     -- Ensure the servers and tools above are installed
@@ -196,7 +202,7 @@ return {
     --
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
-    local ensure_installed = vim.tbl_keys(servers or {})
+    local ensure_installed = vim.tbl_filter(function(server) return server ~= 'agda_ls' end, vim.tbl_keys(servers))
     vim.list_extend(ensure_installed, {
       'lua_ls', -- Lua Language server
       'stylua', -- Used to format Lua code
@@ -242,4 +248,10 @@ return {
     })
     vim.lsp.enable 'lua_ls'
   end,
+
+  vim.lsp.config('agda_ls', {
+    on_attach = function(client) client.server_capabilities.semanticTokensProvider = nil end,
+  }),
+
+  -- Special stuff for agda_ls
 }

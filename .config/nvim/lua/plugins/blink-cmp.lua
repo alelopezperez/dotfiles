@@ -13,7 +13,7 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-    enabled = function() return not vim.tbl_contains({ 'rust' }, vim.bo.filetype) end,
+    enabled = function() return not vim.tbl_contains({ 'rusasdft' }, vim.bo.filetype) end,
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
     -- 'enter' for enter to accept
