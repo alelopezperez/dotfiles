@@ -1,7 +1,7 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = { 'rafamadriz/friendly-snippets' },
+  dependencies = { 'rafamadriz/friendly-snippets', '4e554c4c/blink-cmp-agda-symbols' },
 
   -- use a release tag to download pre-built binaries
   version = '1.*',
@@ -42,7 +42,21 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'agda_symbols', 'lsp', 'path', 'snippets', 'buffer' },
+      providers = {
+        agda_symbols = {
+          name = 'agda_symbols',
+          module = 'blink-agda-symbols',
+          opts = {
+            -- you can add extra symbols here. The table key is the
+            -- completion key, which gets prepended with a backslash '\'
+            extra = {
+              wknight = '♘',
+              moon = { '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘' },
+            },
+          },
+        },
+      },
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
