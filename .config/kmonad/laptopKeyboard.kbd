@@ -1,0 +1,8 @@
+;; My KMonads 
+
+(defcfg 
+  input (device-file "/dev/input/by-id/usb-Razer_Razer_Blade-if01-event-kbd")
+  output (uinput-sink "My Kmonad internal keyboard")
+  fallthrough true)
+(defsrc caps)
+(deflayer my-layer (tap-hold 200 esc lctl))

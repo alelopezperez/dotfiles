@@ -1,0 +1,8 @@
+;; My KMonads 
+
+(defcfg 
+  input (device-file "/dev/input/by-id/usb-SEMICO_USB_Keyboard-event-kbd")
+  output (uinput-sink "My Kmonad")
+  fallthrough true)
+(defsrc caps)
+(deflayer my-layer (tap-hold-next-release 112 esc lctl))

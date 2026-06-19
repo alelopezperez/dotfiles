@@ -45,3 +45,6 @@ test -r '/home/ale/.opam/opam-init/init.fish' && source '/home/ale/.opam/opam-in
 
 ### ALWAYS AT THE END Startship
 starship init fish | source
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish
