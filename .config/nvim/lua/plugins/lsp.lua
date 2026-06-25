@@ -5,7 +5,16 @@ return {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     -- Mason must be loaded before its dependents so we need to set it up here.
     -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-    { 'mason-org/mason.nvim', opts = {} },
+    {
+      'mason-org/mason.nvim',
+      opts = {
+
+        registries = {
+          'github:mason-org/mason-registry',
+          'github:Crashdummyy/mason-registry',
+        },
+      },
+    },
 
     'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -182,6 +191,29 @@ return {
       -- bashls = {},
       rust_analyzer = {},
       hls = {},
+      roslyn = {
+        on_attach = function() print 'This will run when the server attaches!' end,
+
+        settings = {
+          ['csharp|inlay_hints'] = {
+            csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+            csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+            csharp_enable_inlay_hints_for_types = true,
+            dotnet_enable_inlay_hints_for_indexer_parameters = true,
+            dotnet_enable_inlay_hints_for_literal_parameters = true,
+            dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+            dotnet_enable_inlay_hints_for_other_parameters = true,
+            dotnet_enable_inlay_hints_for_parameters = true,
+            dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = false,
+            dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = false,
+          },
+          ['csharp|code_lens'] = {
+            dotnet_enable_references_code_lens = true,
+          },
+        },
+      },
       agda_ls = {
         cmd = { 'als' },
         filetypes = { 'agda' },
@@ -202,7 +234,7 @@ return {
     --
     -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
-    local ensure_installed = vim.tbl_filter(function(server) return server ~= 'agda_ls' end, vim.tbl_keys(servers))
+    local ensure_installed = vim.tbl_filter(function(server) return (server ~= 'agda_ls' and server ~= 'roslyn') end, vim.tbl_keys(servers))
     vim.list_extend(ensure_installed, {
       'lua_ls', -- Lua Language server
       'stylua', -- Used to format Lua code
